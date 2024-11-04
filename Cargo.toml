@@ -2,6 +2,11 @@
 name = "libload_reflective"
 version = "0.1.0"
 edition = "2021"
+description = "A package to reflectively load libraries from memory"
+readme = "README.md"
+repository = "https://github.com/mrLochness350/Libload-Reflective"
+license = "MIT OR Apache-2.0"
+exclude = [".*"]
 
 [dependencies]
 cfg-if = "1.0.0"
