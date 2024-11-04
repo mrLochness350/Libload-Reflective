@@ -116,14 +116,9 @@ unsafe fn open_fd(fd: c_int) -> Result<*mut raw::c_void, ReflectError> {
     let ptr = cstr.as_ptr();
     let handle = dlopen(ptr, RTLD_NOW);
     if handle.is_null() {
-        let err = dlerror();
-        let str = CStr::from_ptr(err);
-        println!("Dl Error: {}", str.to_string_lossy());
-        return Err(ReflectError::GenericError {
-            fmt: format!("dlopen handle was Null"),
-        });
+        let err = CStr::from_ptr(dlerror());
+        return Err(ReflectError::DlOpen{desc: err.into()});
     };
-    println!("Opened handle to library");
     Ok(handle)
 }
 
@@ -137,6 +132,16 @@ impl ReflectedLibrary {
         write_to_fd(bytes, a_fd)?;
         let handle = open_fd(a_fd)?;
         Ok(Self { handle })
+    }
+
+    pub unsafe fn close(&self) -> Result<(), ReflectError> {
+        let dl_close = dlclose(self.handle);
+        if dl_close == -1 {
+            let err = dlerror();
+            let err = CStr::from_ptr(err);
+            return Err(ReflectError::DlClose{desc: err.into() })
+        }
+        Ok(())
     }
     unsafe fn get_impl<T>(&self, symbol: &[u8]) -> Result<Symbol<T>, ReflectError>
     {

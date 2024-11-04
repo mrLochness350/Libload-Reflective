@@ -47,6 +47,10 @@ pub enum ReflectError {
         desc: DlDescrption
     },
     DlSymUnknown,
+    DlClose {
+        desc: DlDescrption,
+    },
+    DlCloseUnknown
 
 
 }
@@ -76,8 +80,10 @@ impl std::fmt::Display for ReflectError{
             IoError { .. } => write!(f, "IO Error has occured"),
             DlOpen {ref desc} => write!(f, "{}", desc.0.to_string_lossy()),
             DlSym { ref desc } => write!(f, "{}", desc.0.to_string_lossy()),
-            DlOpenUnknown => write!(f, "DlOpen, failed but the system did not report the error"),
-            DlSymUnknown => write!(f, "DlSym, failed but the system did not report the error")
+            DlOpenUnknown => write!(f, "DlOpen failed, but the system did not report the error"),
+            DlSymUnknown => write!(f, "DlSym failed, but the system did not report the error"),
+            DlClose { ref desc } => write!(f, "{}",desc.0.to_string_lossy()),
+            DlCloseUnknown => write!(f, "DlClose failed, but the system did not report the error")
         }
     }
 }

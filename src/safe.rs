@@ -19,6 +19,9 @@ impl ReflectedLibrary {
     pub fn get<'lib, T>(&'lib self, symbol: &[u8]) ->Result<Symbol<'lib, T>, ReflectError> {
         unsafe {self.0.get(symbol).map(|from| Symbol::from_raw(from,self)) }
     }
+    pub fn close(self) -> Result<(), ReflectError> {
+        unsafe { self.0.close() }
+    }
 }
 
 #[cfg(target_os = "windows")]
