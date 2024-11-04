@@ -1,5 +1,7 @@
 # Libload Reflective
 
+![maintenance-status](https://img.shields.io/badge/maintenance-experimental-blue.svg)
+
 This crate allows loading dynamic libraries into memory from bytes, rather than from disk.
 A lot of this code was taken from the `libloading` crate, because I thought their implementation of `Symbol<T>` was already done and it didn't need a lot of modifications for it to work with in-memory libraries.
 For Windows it uses Reflective DLL loading, and for Linux it uses anonymous file-descriptors to load the library into memory.
