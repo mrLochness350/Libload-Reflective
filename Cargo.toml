@@ -1,6 +1,6 @@
 [package]
 name = "libload_reflective"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "A package to reflectively load libraries from memory"
 readme = "README.md"
