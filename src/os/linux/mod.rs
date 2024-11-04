@@ -11,6 +11,8 @@ use std::{
 };
 
 use crate::{error::ReflectError, utils::cstr_cow_from_bytes};
+
+#[derive(Clone)]
 pub struct ReflectedLibrary {
     handle: *mut raw::c_void,
 }

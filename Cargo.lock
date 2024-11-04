@@ -16,7 +16,7 @@ checksum = "8e9489c2807c139ffd9c1794f4af0ebe86a828db53ecdc7fea2111d0fed085d1"
 
 [[package]]
 name = "libload_reflective"
-version = "0.1.1"
+version = "0.1.11"
 dependencies = [
  "cfg-if",
  "libc",

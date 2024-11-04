@@ -94,11 +94,13 @@ impl<T> fmt::Debug for Symbol<T> {
 
 
 
+#[derive(Clone)]
 struct ExportedFunction {
     name: Vec<u8>,
     address: *const (),
 }
 
+#[derive(Clone)]
 pub struct ReflectedLibrary {
     base_address: *mut c_void,
     exported_fns: Vec<ExportedFunction>,

@@ -10,6 +10,7 @@ use super::os::linux as imp;
 #[cfg(target_os="windows")]
 use super::os::windows as imp;
 
+#[derive(Clone)]
 pub struct ReflectedLibrary(imp::ReflectedLibrary);
 impl ReflectedLibrary {
     pub  fn new(buffer: Vec<u8>) -> Result<ReflectedLibrary, ReflectError> {
