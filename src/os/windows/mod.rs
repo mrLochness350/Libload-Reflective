@@ -1,6 +1,5 @@
 use std::{
-    borrow::Cow,
-    ffi::{c_void, CStr, CString, OsString},
+    ffi::{c_void, OsString},
     fmt, io, marker,
     mem::size_of,
     os::{raw, windows::ffi::OsStringExt},

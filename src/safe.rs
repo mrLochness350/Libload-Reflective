@@ -12,12 +12,12 @@ use super::os::windows as imp;
 
 pub struct ReflectedLibrary(imp::ReflectedLibrary);
 impl ReflectedLibrary {
-    pub unsafe fn new(buffer: Vec<u8>) -> Result<ReflectedLibrary, ReflectError> {
-        imp::ReflectedLibrary::new(buffer).map(From::from)
+    pub  fn new(buffer: Vec<u8>) -> Result<ReflectedLibrary, ReflectError> {
+        unsafe { imp::ReflectedLibrary::new(buffer).map(From::from) }
     }
 
-    pub unsafe fn get<'lib, T>(&'lib self, symbol: &[u8]) ->Result<Symbol<'lib, T>, ReflectError> {
-        self.0.get(symbol).map(|from| Symbol::from_raw(from,self))
+    pub fn get<'lib, T>(&'lib self, symbol: &[u8]) ->Result<Symbol<'lib, T>, ReflectError> {
+        unsafe {self.0.get(symbol).map(|from| Symbol::from_raw(from,self)) }
     }
 }
 
