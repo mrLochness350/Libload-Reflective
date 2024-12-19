@@ -368,6 +368,7 @@ impl ReflectedLibrary {
         };
         core::ptr::copy_nonoverlapping(buffer.as_ptr() as *const c_void, base_ptr, header_size);
         lib.write_sections(base_ptr, buffer, nt_header, dos_header);
+        lib.fix_base_relocations(base_ptr, nt_header);
         lib.fix_import_table(base_ptr, nt_header)?;
         let export_dir = lib
             .get_export_directory()
@@ -375,7 +376,6 @@ impl ReflectedLibrary {
                 fmt: "No Export Directory".to_string(),
             })?;
         lib.get_exports(export_dir);
-        lib.fix_base_relocations(base_ptr, nt_header);
         Ok(lib)
     }
 
