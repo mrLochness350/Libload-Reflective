@@ -75,7 +75,7 @@ impl std::fmt::Display for ReflectError{
             InvalidCString { .. } => write!(f,"could not create a C string from bytes"),
             WindowsError { .. } => write!(f,"Unknown Windows error has occured"),
             CStringWithTrailing { .. } => write!(f,"could not create a C string from bytes with trailing null"),
-            GenericError { ..} => write!(f,"A Generic Error has occured"),
+            GenericError { ref fmt } => write!(f,"A Generic Error has occured: {}", fmt),
             NoSymbol => write!(f,"The given symbol was not found"),
             IoError { .. } => write!(f, "IO Error has occured"),
             DlOpen {ref desc} => write!(f, "{}", desc.0.to_string_lossy()),

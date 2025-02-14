@@ -437,11 +437,11 @@ impl ReflectedLibrary {
             .SizeOfImage as usize;
 
         let base_ptr = VirtualAlloc(None, image_size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
-        let last_error = GetLastError();
-        if last_error.is_err() {
-            
-            return Err(ReflectError::GenericError { fmt: format!("Last Error: {}", last_error.0) });
+        if base_ptr.is_null() {
+            let last_error = GetLastError();
+            return Err(ReflectError::GenericError { fmt: format!("VirtualAlloc failed: {}", last_error.0) });
         }
+            
         
         let mut lib = ReflectedLibrary {
             base_address: base_ptr,
